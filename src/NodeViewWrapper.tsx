@@ -1,4 +1,4 @@
-import type { Component, JSXElement, ValidComponent } from "solid-js";
+import type { Component, ValidComponent } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { useSolidNodeView } from "./useSolidNodeView";
 

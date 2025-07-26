@@ -30,7 +30,7 @@ export const BubbleMenu: ParentComponent<BubbleMenuProps> = (props) => {
 		}
 
 		const pluginKey = props.pluginKey || "bubbleMenu";
-		const tippyOptions = props.tippyOptions || {};
+		const options = props.options || {};
 		const shouldShow = props.shouldShow || null;
 
 		stableEditorRef.registerPlugin(
@@ -38,7 +38,7 @@ export const BubbleMenu: ParentComponent<BubbleMenuProps> = (props) => {
 				pluginKey,
 				editor: stableEditorRef,
 				element: element,
-				tippyOptions,
+				options,
 				shouldShow,
 			}),
 		);

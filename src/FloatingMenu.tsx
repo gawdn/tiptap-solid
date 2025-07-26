@@ -1,4 +1,4 @@
-import { Component, ParentComponent, createEffect, onCleanup } from "solid-js";
+import { ParentComponent, createEffect, onCleanup } from "solid-js";
 import {
   FloatingMenuPlugin,
   FloatingMenuPluginProps,
@@ -24,7 +24,7 @@ export const FloatingMenu: ParentComponent<FloatingMenuProps> = (props) => {
     const {
       pluginKey = "floatingMenu",
       editor,
-      tippyOptions = {},
+      options,
       shouldShow = null,
     } = props;
 
@@ -33,7 +33,7 @@ export const FloatingMenu: ParentComponent<FloatingMenuProps> = (props) => {
         pluginKey,
         editor,
         element: element,
-        tippyOptions,
+        options,
         shouldShow,
       })
     );

@@ -38,6 +38,9 @@ export const EditorContent: Component<EditorContentProps> = (props) => {
         nodeViews: {},
       });
     }
+    if (!editor.options.element) {
+      return;
+    }
     if (!editor.options.element.firstChild) {
       return;
     }

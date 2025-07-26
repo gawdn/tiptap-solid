@@ -9,8 +9,8 @@ describe('environment', () => {
   })
 })
 
-describe('Hello', () => {
-  it('renders a hello component', () => {
+describe('EditorContent', () => {
+  it('renders the root component', () => {
     const string = renderToString(() => <EditorContent editor={null} />)
     expect(string).toBe('<div ></div>')
   })

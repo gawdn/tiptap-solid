@@ -125,13 +125,15 @@
     "update-deps": "pnpm up -Li"
   },
   "peerDependencies": {
-    "@tiptap/core": "^3.0.0",
-    "@tiptap/extension-bubble-menu": "^3.0.0",
-    "@tiptap/extension-floating-menu": "^3.0.0",
-    "@tiptap/pm": "^3.0.0",
-    "solid-js": "^1.8.17"
+    "@floating-ui/dom": "^1.6.0",
+    "@tiptap/core": "^3.0.7",
+    "@tiptap/extension-bubble-menu": "^3.0.7",
+    "@tiptap/extension-floating-menu": "^3.0.7",
+    "@tiptap/pm": "^3.0.7",
+    "solid-js": "^1.9.6"
   },
   "devDependencies": {
+    "@floating-ui/dom": "^1.6.0",
     "@tiptap/core": "^3.0.7",
     "@tiptap/extension-bubble-menu": "^3.0.7",
     "@tiptap/extension-floating-menu": "^3.0.7",
