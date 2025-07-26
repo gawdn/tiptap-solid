@@ -1,6 +1,6 @@
 {
   "name": "tiptap-solid",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "SolidJS components for tiptap v2",
   "keywords": [
     "solid"
@@ -125,18 +125,18 @@
     "update-deps": "pnpm up -Li"
   },
   "peerDependencies": {
-    "@tiptap/core": "^2.2.2",
-    "@tiptap/extension-bubble-menu": "^2.2.2",
-    "@tiptap/extension-floating-menu": "^2.2.2",
-    "@tiptap/pm": "^2.12.0",
+    "@tiptap/core": "^3.0.0",
+    "@tiptap/extension-bubble-menu": "^3.0.0",
+    "@tiptap/extension-floating-menu": "^3.0.0",
+    "@tiptap/pm": "^3.0.0",
     "solid-js": "^1.8.17"
   },
   "devDependencies": {
-    "@tiptap/core": "^2.12.0",
-    "@tiptap/extension-bubble-menu": "^2.12.0",
-    "@tiptap/extension-floating-menu": "^2.12.0",
-    "@tiptap/pm": "^2.12.0",
-    "@tiptap/starter-kit": "^2.12.0",
+    "@tiptap/core": "^3.0.7",
+    "@tiptap/extension-bubble-menu": "^3.0.7",
+    "@tiptap/extension-floating-menu": "^3.0.7",
+    "@tiptap/pm": "^3.0.7",
+    "@tiptap/starter-kit": "^3.0.7",
     "@types/node": "^20.17.45",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
