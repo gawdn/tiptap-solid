@@ -1,60 +1,58 @@
-import type { Editor } from "@tiptap/core";
+import type { Editor, EditorOptions } from '@tiptap/core'
 import {
   type Component,
   type ComponentProps,
   createEffect,
+  createSignal,
   onCleanup,
   splitProps,
-} from "solid-js";
-export interface EditorContentProps extends ComponentProps<"div"> {
-  editor: Editor | null;
+} from 'solid-js'
+export interface EditorContentProps extends ComponentProps<'div'> {
+  editor: Editor | null
 }
 
-export const EditorContent: Component<EditorContentProps> = (props) => {
-  const [local, rest] = splitProps(props, ["editor"]);
-
-  let editorContentRef!: HTMLDivElement;
-  let mounted = false;
-
-  createEffect(() => {
-    const { editor } = local;
-    if (editor?.options.element) {
-      if (mounted) return;
-      mounted = true;
-      editorContentRef.append(...editor.options.element.childNodes);
-      editor.setOptions({
-        element: editorContentRef,
-      });
-      editor.createNodeViews();
+function mountEditor(editor: Editor | null, targetRef: HTMLElement) {
+  if (editor?.options.element) {
+    let element = editor.options.element
+    if (element instanceof Element) {
+      targetRef.append(...element.childNodes)
+    } else if (typeof element === 'object') {
+      targetRef.append(...element.mount.childNodes)
+    } else {
+      element(targetRef)
     }
-  });
+    editor.setOptions({
+      element: targetRef,
+    })
+    editor.createNodeViews()
+    return true
+  }
+  return false
+}
+
+export const EditorContent: Component<EditorContentProps> = props => {
+  const [local, rest] = splitProps(props, ['editor'])
+  let [editorContentRef, setEditorContentRef] = createSignal<HTMLDivElement>()
+  let mounted = false
+  createEffect(() => {
+    const { editor } = local
+    let ref = editorContentRef()
+    if (mounted || ref == null) return
+    const didMount = mountEditor(editor, ref)
+    mounted = didMount
+  })
   onCleanup(() => {
-    const { editor } = local;
+    const { editor } = local
     if (!editor) {
-      return;
+      return
     }
     if (!editor.isDestroyed) {
       editor.view.setProps({
         nodeViews: {},
-      });
+      })
+      editor.unmount()
     }
-    if (!editor.options.element) {
-      return;
-    }
-    if (!editor.options.element.firstChild) {
-      return;
-    }
-    const newElement = document.createElement("div");
-    newElement.append(...editor.options.element.childNodes);
-    editor.setOptions({
-      element: newElement,
-    });
-  });
+  })
 
-  return (
-    <div
-      ref={editorContentRef}
-      {...rest}
-    />
-  );
-};
+  return <div ref={e => setEditorContentRef(e)} {...rest} />
+}

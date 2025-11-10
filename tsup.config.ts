@@ -10,7 +10,7 @@ const preset_options: preset.PresetOptions = {
       entry: 'src/index.tsx',
       // will generate a separate development entry
       dev_entry: true,
-      server_entry: true
+      server_entry: true,
     },
   ],
   // Set to `true` to remove all `console.*` calls and `debugger` statements in prod builds
@@ -38,6 +38,18 @@ export default defineConfig(config => {
     // will update ./package.json with the correct export fields
     preset.writePackageJson(package_fields)
   }
+  const tsup_options = preset.generateTsupOptions(parsed_options)
+  // add external to each entry
+  tsup_options.forEach(opts => {
+    opts.external = [
+      '@tiptap/core',
+      '@tiptap/pm',
+      '@tiptap/extension-bubble-menu',
+      '@tiptap/extension-floating-menu',
+      'solid-js',
+      '@floating-ui/dom',
+    ]
+  })
 
-  return preset.generateTsupOptions(parsed_options)
+  return tsup_options
 })
