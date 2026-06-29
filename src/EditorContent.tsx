@@ -1,4 +1,4 @@
-import type { Editor, EditorOptions } from '@tiptap/core'
+import type { Editor } from '@tiptap/core'
 import {
   type Component,
   type ComponentProps,
@@ -13,7 +13,7 @@ export interface EditorContentProps extends ComponentProps<'div'> {
 
 function mountEditor(editor: Editor | null, targetRef: HTMLElement) {
   if (editor?.options.element) {
-    let element = editor.options.element
+    const element = editor.options.element
     if (element instanceof Element) {
       targetRef.append(...element.childNodes)
     } else if (typeof element === 'object') {
@@ -32,11 +32,11 @@ function mountEditor(editor: Editor | null, targetRef: HTMLElement) {
 
 export const EditorContent: Component<EditorContentProps> = props => {
   const [local, rest] = splitProps(props, ['editor'])
-  let [editorContentRef, setEditorContentRef] = createSignal<HTMLDivElement>()
+  const [editorContentRef, setEditorContentRef] = createSignal<HTMLDivElement>()
   let mounted = false
   createEffect(() => {
     const { editor } = local
-    let ref = editorContentRef()
+    const ref = editorContentRef()
     if (mounted || ref == null) return
     const didMount = mountEditor(editor, ref)
     mounted = didMount

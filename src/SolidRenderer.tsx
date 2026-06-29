@@ -1,7 +1,7 @@
 import { Editor } from '@tiptap/core'
 import { Component, createRoot } from 'solid-js'
 import { render } from 'solid-js/web'
-import { getTiptapSolidReactiveOwner } from './ReactiveOwner'
+import { getTiptapSolidReactiveOwner } from './ReactiveOwner.js'
 import { createStore } from 'solid-js/store'
 
 export interface SolidRendererOptions<P = any> {
@@ -43,7 +43,7 @@ export class SolidRenderer<P extends Record<string, any> = Record<string, any>> 
       this.setProps = (newProps: Partial<P>) => setStore((prev: any) => ({ ...prev, ...newProps }))
 
       // Render the component directly into the container
-      render(() => component(store as P), this.element)
+      render(() => component(store), this.element)
     }, owner)
   }
 

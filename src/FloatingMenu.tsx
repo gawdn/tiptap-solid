@@ -1,32 +1,21 @@
-import { ParentComponent, createEffect, onCleanup } from "solid-js";
-import {
-  FloatingMenuPlugin,
-  FloatingMenuPluginProps,
-} from "@tiptap/extension-floating-menu";
+import { ParentComponent, createEffect, onCleanup } from 'solid-js'
+import { FloatingMenuPlugin, FloatingMenuPluginProps } from '@tiptap/extension-floating-menu'
 
-type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
-export type FloatingMenuProps = Omit<
-  Optional<FloatingMenuPluginProps, "pluginKey">,
-  "element"
-> & {
-  class?: string;
-};
+export type FloatingMenuProps = Omit<Optional<FloatingMenuPluginProps, 'pluginKey'>, 'element'> & {
+  class?: string
+}
 
-export const FloatingMenu: ParentComponent<FloatingMenuProps> = (props) => {
-  let element: HTMLElement | null = null;
+export const FloatingMenu: ParentComponent<FloatingMenuProps> = props => {
+  let element: HTMLElement | null = null
 
   createEffect(() => {
     if (!element) {
-      return;
+      return
     }
 
-    const {
-      pluginKey = "floatingMenu",
-      editor,
-      options,
-      shouldShow = null,
-    } = props;
+    const { pluginKey = 'floatingMenu', editor, options, shouldShow = null } = props
 
     editor.registerPlugin(
       FloatingMenuPlugin({
@@ -35,21 +24,17 @@ export const FloatingMenu: ParentComponent<FloatingMenuProps> = (props) => {
         element: element,
         options,
         shouldShow,
-      })
-    );
+      }),
+    )
 
     onCleanup(() => {
-      editor.unregisterPlugin(pluginKey);
-    });
-  });
+      editor.unregisterPlugin(pluginKey)
+    })
+  })
 
   return (
-    <div
-      ref={(e) => (element = e)}
-      class={props.class}
-      style={{ visibility: "hidden" }}
-    >
+    <div ref={e => (element = e)} class={props.class} style={{ visibility: 'hidden' }}>
       {props.children}
     </div>
-  );
-};
+  )
+}

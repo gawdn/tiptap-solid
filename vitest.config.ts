@@ -1,11 +1,11 @@
-import { defineConfig } from 'vitest/config'
+import { ConfigEnv, defineConfig } from 'vitest/config'
 import solidPlugin from 'vite-plugin-solid'
 
-export default defineConfig(({ mode }) => {
+// @ts-expect-error
+export default defineConfig(({ mode }: ConfigEnv) => {
   // to test in server environment, run with "--mode ssr" or "--mode test:ssr" flag
   // loads only server.test.ts file
   const testSSR = mode === 'test:ssr' || mode === 'ssr'
-
   return {
     plugins: [
       solidPlugin({

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { isServer, renderToString } from 'solid-js/web'
-import { EditorContent } from '../src'
+import { EditorContent } from '../src/index.jsx'
 
 describe('environment', () => {
   it('runs on server', () => {

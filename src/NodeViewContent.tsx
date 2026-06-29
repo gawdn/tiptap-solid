@@ -1,25 +1,25 @@
-import { Component, JSX } from "solid-js";
-import { Dynamic } from "solid-js/web";
-import { useSolidNodeView } from "./useSolidNodeView";
+import { Component, JSX } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+import { useSolidNodeView } from './useSolidNodeView.js'
 
 export interface NodeViewContentProps {
-  [key: string]: any;
-  as?: Exclude<number, JSX.Element>;
+  [key: string]: any
+  as?: keyof JSX.IntrinsicElements
 }
 
-export const NodeViewContent: Component<NodeViewContentProps> = (props) => {
-  const state = useSolidNodeView();
+export const NodeViewContent: Component<NodeViewContentProps> = props => {
+  const state = useSolidNodeView()
 
   return (
     <Dynamic
-      component={props.as || "div"}
+      component={props.as || 'div'}
       {...props}
       ref={state.nodeViewContentRef}
       data-node-view-content=""
       style={{
         ...props.style,
-        "white-space": "pre-wrap",
+        'white-space': 'pre-wrap',
       }}
     />
-  );
-};
+  )
+}

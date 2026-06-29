@@ -1,8 +1,14 @@
 import type { Component } from 'solid-js'
 import logo from './logo.svg'
 import styles from './App.module.css'
-import {EditorContent, NodeViewContent, NodeViewWrapper, SolidNodeViewRenderer, createEditor} from "../src/index"
-import StarterKit from "@tiptap/starter-kit";
+import {
+  EditorContent,
+  NodeViewContent,
+  NodeViewWrapper,
+  SolidNodeViewRenderer,
+  createEditor,
+} from '../src/index'
+import StarterKit from '@tiptap/starter-kit'
 import { mergeAttributes, Node } from '@tiptap/core'
 
 const App: Component = () => {
@@ -14,7 +20,7 @@ const App: Component = () => {
       <p>This is editable. You can create a new component by pressing Mod+Enter.</p>
     </react-component>
     `,
-  });
+  })
 
   return (
     <div class={styles.App}>
@@ -23,8 +29,7 @@ const App: Component = () => {
   )
 }
 
-
-const CompExt =  Node.create({
+const CompExt = Node.create({
   name: 'reactComponent',
 
   group: 'block',
@@ -42,7 +47,11 @@ const CompExt =  Node.create({
   addKeyboardShortcuts() {
     return {
       'Mod-Enter': () => {
-        return this.editor.chain().insertContentAt(this.editor.state.selection.head, { type: this.type.name }).focus().run()
+        return this.editor
+          .chain()
+          .insertContentAt(this.editor.state.selection.head, { type: this.type.name })
+          .focus()
+          .run()
       },
     }
   },

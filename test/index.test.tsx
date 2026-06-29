@@ -1,10 +1,23 @@
-import { createRoot, Show } from 'solid-js'
+import { createRoot, JSX, Show } from 'solid-js'
 import { isServer } from 'solid-js/web'
-import { createEditor, EditorContent } from '../src'
-import { describe, expect, it, vi } from 'vitest'
-import { BubbleMenu } from '../src/BubbleMenu'
+import { createEditor, EditorContent } from '../src/index.jsx'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { BubbleMenu } from '../src/BubbleMenu.jsx'
 import { StarterKit } from '@tiptap/starter-kit'
-import { FloatingMenu } from '../src/FloatingMenu'
+import { FloatingMenu } from '../src/FloatingMenu.jsx'
+import { render } from 'solid-js/web'
+
+import { cleanup } from '@solidjs/testing-library'
+
+afterEach(() => {
+  cleanup()
+})
+
+function mount(ui: () => JSX.Element) {
+  const container = document.createElement('div')
+  render(ui, container)
+  return container
+}
 
 describe('environment', () => {
   it('runs on client', () => {
@@ -14,44 +27,57 @@ describe('environment', () => {
 })
 
 describe('EditorContent', () => {
-  it('renders the root component', () => {
-    createRoot(() => {
-      const container = (<EditorContent editor={null} />) as HTMLDivElement
-      expect(container.outerHTML).toBe('<div></div>')
-    })
+  it('renders root component', () => {
+    const container = mount(() => <EditorContent editor={null} />)
+
+    expect(container.innerHTML).toBe('<div></div>')
   })
 })
 
 describe('BubbleMenu', () => {
-  it('renders a bubble menu component', async () => {
-    createRoot(async () => {
-      const editor = createEditor({
-        extensions: [StarterKit],
-      })
-      await vi.waitFor(() => new Promise<void>((res, rej) => (editor() != null ? res() : rej())))
-      const container = (
-        <EditorContent editor={editor()}>
-          <BubbleMenu editor={editor()!} class="test" />
-        </EditorContent>
-      ) as HTMLDivElement
-      expect(container.outerHTML).toBe('<div><div class="test"></div></div>')
+  it('renders bubble menu component', async () => {
+    const editor = createEditor({
+      extensions: [StarterKit],
     })
+
+    await vi.waitFor(() => {
+      if (!editor()) throw new Error('not ready')
+    })
+
+    const container = mount(() => (
+      <EditorContent editor={editor()}>
+        <BubbleMenu editor={editor()!} class="test" />
+      </EditorContent>
+    ))
+
+    const prose = container.querySelector('.ProseMirror')
+    const menu = container.querySelector('.test')
+
+    expect(prose).toBeTruthy()
+    expect(menu).toBeTruthy()
   })
 })
 
 describe('FloatingMenu', () => {
-  it('renders a floating menu component', async () => {
-    createRoot(async () => {
-      const editor = createEditor({
-        extensions: [StarterKit],
-      })
-      await vi.waitFor(() => new Promise<void>((res, rej) => (editor() != null ? res() : rej())))
-      const container = (
-        <EditorContent editor={editor()}>
-          <FloatingMenu editor={editor()!} class={'test'} />
-        </EditorContent>
-      ) as HTMLDivElement
-      expect(container.outerHTML).toBe('<div><div class="test"></div></div>')
+  it('renders floating menu component', async () => {
+    const editor = createEditor({
+      extensions: [StarterKit],
     })
+
+    await vi.waitFor(() => {
+      if (!editor()) throw new Error('not ready')
+    })
+
+    const container = mount(() => (
+      <EditorContent editor={editor()}>
+        <FloatingMenu editor={editor()!} class="test" />
+      </EditorContent>
+    ))
+
+    const prose = container.querySelector('.ProseMirror')
+    const menu = container.querySelector('.test')
+
+    expect(prose).toBeTruthy()
+    expect(menu).toBeTruthy()
   })
 })

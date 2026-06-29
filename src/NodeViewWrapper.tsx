@@ -1,27 +1,27 @@
-import type { Component, ValidComponent } from "solid-js";
-import { Dynamic } from "solid-js/web";
-import { useSolidNodeView } from "./useSolidNodeView";
+import type { Component, ValidComponent } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+import { useSolidNodeView } from './useSolidNodeView.js'
 
 export interface NodeViewWrapperProps {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  [key: string]: any;
-  ref?: HTMLDivElement | ((el: HTMLDivElement) => void);
-  as?: ValidComponent;
+  [key: string]: any
+  ref?: HTMLDivElement | ((el: HTMLDivElement) => void)
+  as?: ValidComponent
 }
 
-export const NodeViewWrapper: Component<NodeViewWrapperProps> = (props) => {
-  const { onDragStart } = useSolidNodeView();
+export const NodeViewWrapper: Component<NodeViewWrapperProps> = props => {
+  const { onDragStart } = useSolidNodeView()
 
   return (
     <Dynamic
-      component={props.as || "div"}
+      component={props.as || 'div'}
       {...props}
       data-node-view-wrapper=""
       onDragStart={onDragStart}
       style={{
         ...props.style,
-        whiteSpace: "normal",
+        whiteSpace: 'normal',
       }}
     />
-  );
-};
+  )
+}

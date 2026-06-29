@@ -1,10 +1,10 @@
-export * from "./BubbleMenu";
-export * from "./createEditor";
-export * from "./EditorContent";
-export * from "./FloatingMenu";
-export * from "./NodeViewContent";
-export * from "./NodeViewRenderer";
-export * from "./NodeViewWrapper";
-export { getTiptapSolidReactiveOwner } from "./ReactiveOwner";
-export * from "./SolidRenderer";
-export * from "./useSolidNodeView";
+export * from './BubbleMenu.jsx'
+export * from './createEditor.js'
+export * from './EditorContent.jsx'
+export * from './FloatingMenu.jsx'
+export * from './NodeViewContent.jsx'
+export * from './NodeViewRenderer.jsx'
+export * from './NodeViewWrapper.jsx'
+export { getTiptapSolidReactiveOwner } from './ReactiveOwner.js'
+export * from './SolidRenderer.jsx'
+export * from './useSolidNodeView.js'
